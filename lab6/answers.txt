@@ -1,0 +1,33 @@
+Scheduling:
+1) Where is the dispatch function for context switching threads?
+	swtch.S
+2) Where is the logic for the scheduler?
+	proc.c contains scheduler() which loops through processes and switches
+context using switch fom swtch.S
+3) xv6 tracks its "runqueue" in a unique way. How is it implemented?
+	Visit every index in the process table, ptable, [0,NPROC) using for-loop	
+4) What scheduling policy does it use?
+	Round-robin algorithm, simply iterating through process table
+
+Synchronization:
+1) What do *pushcli* and *popcli* do? Any guesses? Can anyone explain parts of
+it?
+	enable/disable interrupts -- intena - interrupt enable -- lock and unlock
+resources
+2) What do *acquire* and *release* do?
+	spin-type lock
+3) Any guesses what *xchg* does? Its main use is in *acquire*...
+4) How does the implementation of *acquire* and *release* use enabling and
+disabling interrupts? How does it use atomic instructions?
+5) If it didn't use interrupt disabling, how ould th ebehavior of the system
+change for the worse?
+6) If the implementation didn't use atomic instructions and the *locked*
+variable, how would the behavior change for the worse?
+7) What is a *sleeplock*, and how does it differ from these spinlocks?
+Sleep: network io, disk io
+Long wait, use sleep
+Spin:
+8) How does a *sleeplock* work, and in what situations do you thin it is used
+in xv6?
+9) How does the *sleeplock* synchronize access to the words and memory of its
+own implementations?
